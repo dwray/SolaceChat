@@ -1,15 +1,12 @@
 description = 'A Simple Chat Application'
 
 buildscript {
-        ext {
-            solaceJCSMPVersion = '10.+'
-        }
     repositories {
         mavenCentral()
     }
 }
 
-apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
@@ -22,10 +19,7 @@ compileTestJava {
 	targetCompatibility=1.8
 }
 
-jar {
-    baseName = 'demo-solace-chat'
-    version =  ''
-}
+mainClassName = "com.solace.labs.chat.ChatClientApp"
 
 repositories {
     mavenCentral()
@@ -34,9 +28,14 @@ repositories {
 dependencies {
     
     // Solace Java API
-    compile("com.solacesystems:sol-jcsmp:${solaceJCSMPVersion}")
+    compile group: 'com.solacesystems', name: 'sol-jcsmp', version: '10.0.1'
+
+    // Other dependencies
+    compile group: 'com.miglayout', name: 'miglayout-swing', version: '5.0'
+	compile group: 'com.miglayout', name: 'miglayout-core', version: '5.0'
+
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.14'
+    gradleVersion = '3.3'
 }
