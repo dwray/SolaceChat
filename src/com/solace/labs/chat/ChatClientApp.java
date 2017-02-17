@@ -1,4 +1,4 @@
-package com.solacelabs.chat;
+package com.solace.labs.chat;
 
 import java.awt.EventQueue;
 
