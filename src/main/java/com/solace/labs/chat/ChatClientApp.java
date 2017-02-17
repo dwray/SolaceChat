@@ -1,44 +1,53 @@
 package com.solace.labs.chat;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 import java.awt.AWTException;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Robot;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.nio.ByteBuffer;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.TreeMap;
 
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JComboBox;
-import javax.swing.JList;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.AbstractButton;
-import javax.swing.JCheckBox;
-import javax.swing.JTextPane;
-import javax.swing.JEditorPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
 import javax.swing.UIManager;
-import javax.swing.border.TitledBorder;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultCaret;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import java.nio.ByteBuffer;
-
-import com.solacelabs.chat.ActivityMonitor.userState;
 import com.solacesystems.jcsmp.BytesXMLMessage;
 import com.solacesystems.jcsmp.DeliveryMode;
-import com.solacesystems.jcsmp.Destination;
 import com.solacesystems.jcsmp.InvalidPropertiesException;
 import com.solacesystems.jcsmp.JCSMPChannelProperties;
 import com.solacesystems.jcsmp.JCSMPException;
@@ -54,36 +63,8 @@ import com.solacesystems.jcsmp.XMLMessage;
 import com.solacesystems.jcsmp.XMLMessageConsumer;
 import com.solacesystems.jcsmp.XMLMessageListener;
 import com.solacesystems.jcsmp.XMLMessageProducer;
-import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.InputEvent;
-import java.rmi.RemoteException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.TreeMap;
-import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.Robot;
-import java.awt.FlowLayout;
-import java.awt.Font;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.JPasswordField;
-import javax.swing.SwingConstants;
+import net.miginfocom.swing.MigLayout;
 
 public class ChatClientApp {
 
@@ -114,7 +95,6 @@ public class ChatClientApp {
 	private HashMap<String,String> messageTopicMap = new HashMap<String, String>();
 	private HashSet<String> subscribedUsersSet = new HashSet<String>();
 	private HashMap<String,JCheckBox> directoryUsersMap = new HashMap<String, JCheckBox>();
-	private HashMap<String,ActivityMonitor> directoryUsersActivityMap = new HashMap<String, ActivityMonitor>();
 	private byte[] disconnectBytes = "disconnect".getBytes();
 	private byte[] idleBytes = "idle".getBytes();
 	private boolean isIdle = false;
@@ -127,7 +107,6 @@ public class ChatClientApp {
 	private Timer pingTimer;
 	private String LF = System.getProperty("line.separator");
 	private Font chatFont;
-	private Font chatFontBold;
 	private SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");//	private StyledDocument chatDoc;
 	private SimpleAttributeSet userName;
 	private SimpleAttributeSet dateStyle;//	private JScrollPane scrollPanePublicMessages;
@@ -138,6 +117,7 @@ public class ChatClientApp {
 	private Timer idleTimer;
 	private Topic topicSelfPrivate;
 	private String Self;
+	private JToggleButton tglbtnConnect;
 	
 	/**
 	 * Launch the application.
@@ -290,7 +270,7 @@ public class ChatClientApp {
 		panel.add(txtFldVPN, "cell 1 4,growx");
 		txtFldVPN.setColumns(10);
 		
-		JToggleButton tglbtnConnect = new JToggleButton("Connect");
+		tglbtnConnect = new JToggleButton("Connect");
 		tglbtnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (tglbtnConnect.isSelected()) {
