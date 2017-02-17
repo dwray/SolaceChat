@@ -1,0 +1,42 @@
+description = 'A Simple Chat Application'
+
+buildscript {
+        ext {
+            solaceJCSMPVersion = '10.+'
+        }
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+compileJava {
+	sourceCompatibility=1.7
+	targetCompatibility=1.7
+}
+compileTestJava {
+	sourceCompatibility=1.8
+	targetCompatibility=1.8
+}
+
+jar {
+    baseName = 'demo-solace-chat'
+    version =  ''
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    
+    // Solace Java API
+    compile("com.solacesystems:sol-jcsmp:${solaceJCSMPVersion}")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14'
+}
