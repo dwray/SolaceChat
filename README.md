@@ -1,6 +1,21 @@
 # SolaceChat
 A demo of the Solace Java API, disguised as a Chat Application
 
+## Building
+
+Clone this GitHub repository and build. For example:
+
+```
+  git clone https://github.com/dwray/SolaceChat.git
+  cd SolaceChat
+  ./gradlew build
+```
+
+## Running
+
+After the build has completed, expand one of the at SolceChat/build/distributions.
+Run {expansion location}/SolaceChat/bin/SolaceChat on Mac or SolaceChat.bat on Windows.
+
 ## Authors
 
 See the list of [contributors](https://github.com/SolaceSamples/solace-samples-template/contributors) who participated in this project.
