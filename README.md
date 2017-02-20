@@ -13,8 +13,8 @@ Clone this GitHub repository and build. For example:
 
 ## Running
 
-After the build has completed, expand one of the at SolceChat/build/distributions.
-Run {expansion location}/SolaceChat/bin/SolaceChat on Mac or SolaceChat.bat on Windows.
+After the build has completed, expand one of the archives at SolceChat/build/distributions.
+Run {expansion location}/SolaceChat/bin/SolaceChat on Mac/Linux or SolaceChat.bat on Windows.
 
 ## Authors
 
